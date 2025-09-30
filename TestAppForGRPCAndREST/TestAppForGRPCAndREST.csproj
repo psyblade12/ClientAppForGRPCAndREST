@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="C:\Users\Thuan\source\repos\TestWebApp\TestWebApp\Protos\WeatherService.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\WeatherService.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>
