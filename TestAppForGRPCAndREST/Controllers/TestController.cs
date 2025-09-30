@@ -31,7 +31,7 @@ namespace TestAppForGRPCAndREST.Controllers
             List<string> listName = new List<string>() { "Beijing", "Tokyo", "New York", "London", "Seoul", "Munich", "Berlin", "Bacu", "Bangcock", "A", "B", "C", "D", "E", "F" };
             foreach (var name in listName)
             {
-                Stopwatch sw = Stopwatch.StartNew();
+                Stopwatch sw = new Stopwatch();
                 sw.Start();
                 var response2 = await client.GetStringAsync($"{host}/weatherForecast/ReturnHello?name={name}");
                 sw.Stop();
@@ -53,7 +53,7 @@ namespace TestAppForGRPCAndREST.Controllers
             List<string> listCity = new List<string>() { "Beijing", "Tokyo", "New York", "London", "Seoul", "Munich", "Berlin", "Bacu", "Bangcock", "A", "B", "C", "D", "E", "F" };
             foreach (var city in listCity)
             {
-                Stopwatch sw = Stopwatch.StartNew();
+                Stopwatch sw = new Stopwatch();
                 sw.Start();
                 var response2 = await clientGRPC.GetWeatherAsync(new WeatherRequest { City = city });
                 sw.Stop();
@@ -74,7 +74,7 @@ namespace TestAppForGRPCAndREST.Controllers
             List<string> listCity2 = new List<string>() { "Beijing", "Tokyo", "New York", "London", "Seoul", "Munich", "Berlin", "Bacu", "Bangcock", "A", "B", "C", "D", "E", "F" };
             foreach (var city in listCity2)
             {
-                Stopwatch sw = Stopwatch.StartNew();
+                Stopwatch sw = new Stopwatch();
                 sw.Start();
                 var response2 = await clientGRPCweb.GetWeatherAsync(new WeatherRequest { City = city });
                 sw.Stop();
