@@ -33,7 +33,6 @@ namespace TestAppForGRPCAndREST.Controllers
             {
                 Stopwatch sw = Stopwatch.StartNew();
                 sw.Start();
-                using var client2 = new HttpClient(new HttpClientHandler());
                 var response2 = await client.GetStringAsync($"{host}/weatherForecast/ReturnHello?name={name}");
                 sw.Stop();
 
