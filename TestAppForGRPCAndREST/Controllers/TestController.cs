@@ -85,5 +85,42 @@ namespace TestAppForGRPCAndREST.Controllers
 
             return returnStringBuilder.ToString();
         }
+
+        [HttpGet("TestCosmos")]
+        public async Task<string>TestCosmos(string host = "")
+        {
+            var returnStringBuilder = new StringBuilder();
+            using var client = new HttpClient(new HttpClientHandler());
+
+            //No cosmos, just dependency injection test....
+            returnStringBuilder.Append($"Testing no Cosmos..... \r\n");
+
+            List<string> listName = new List<string>() {"A", "B", "C", "D", "E", "F", "I", "J", "K" };
+            foreach (var name in listName)
+            {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                var response2 = await client.GetStringAsync($"{host}/cosmostest/testendpoint");
+                sw.Stop();
+
+                returnStringBuilder.Append($"{response2}. Elapsed time: {sw.ElapsedMilliseconds} \r\n");
+            }
+
+            //Testing cosmos....
+            returnStringBuilder.Append($"Testing Cosmos GetByID..... \r\n");
+
+            List<string> listName2 = new List<string>() { "A", "B", "C", "D", "E", "F", "I", "J", "K" };
+            foreach (var name in listName2)
+            {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                var response2 = await client.GetStringAsync($"{host}/cosmostest/GetByID?id=c91c79d2-bfe2-4068-a60a-9f065ac8e078&partitionKey=WRAP00003");
+                sw.Stop();
+
+                returnStringBuilder.Append($"{response2}. Elapsed time: {sw.ElapsedMilliseconds} \r\n");
+            }
+
+            return returnStringBuilder.ToString();
+        }
     }
 }
