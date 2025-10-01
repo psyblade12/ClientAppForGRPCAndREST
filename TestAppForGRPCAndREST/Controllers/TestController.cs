@@ -104,7 +104,6 @@ namespace TestAppForGRPCAndREST.Controllers
                 sw.Stop();
 
                 returnStringBuilder.Append($"{response2}. Elapsed time: {sw.ElapsedMilliseconds} \r\n");
-                await Task.Delay(200);
             }
 
             //Testing cosmos....
@@ -119,8 +118,6 @@ namespace TestAppForGRPCAndREST.Controllers
                 sw.Stop();
 
                 returnStringBuilder.Append($"{response2}. Elapsed time: {sw.ElapsedMilliseconds} \r\n");
-
-                await Task.Delay(200);
             }
 
             return returnStringBuilder.ToString();
