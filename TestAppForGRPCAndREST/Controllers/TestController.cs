@@ -12,10 +12,12 @@ namespace TestAppForGRPCAndREST.Controllers
     public class TestController : ControllerBase
     {
         private readonly ILogger<TestController> _logger;
+        private readonly HttpClient _httpClient;
 
-        public TestController(ILogger<TestController> logger)
+        public TestController(ILogger<TestController> logger, HttpClient httpClient)
         {
             _logger = logger;
+            _httpClient = httpClient;
         }
 
         [HttpGet(Name = "Test")]
@@ -26,14 +28,12 @@ namespace TestAppForGRPCAndREST.Controllers
             //REST API....
             returnStringBuilder.Append($"Rest API..... \r\n");
 
-            using var client = new HttpClient(new HttpClientHandler());
-
             List<string> listName = new List<string>() { "Beijing", "Tokyo", "New York", "London", "Seoul", "Munich", "Berlin", "Bacu", "Bangcock", "A", "B", "C", "D", "E", "F" };
             foreach (var name in listName)
             {
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
-                var response2 = await client.GetStringAsync($"{host}/weatherForecast/ReturnHello?name={name}");
+                var response2 = await _httpClient.GetStringAsync($"{host}/weatherForecast/ReturnHello?name={name}");
                 sw.Stop();
 
                 returnStringBuilder.Append($"{response2}. Elapsed time: {sw.ElapsedMilliseconds} \r\n");
@@ -90,7 +90,6 @@ namespace TestAppForGRPCAndREST.Controllers
         public async Task<string>TestCosmos(string host = "")
         {
             var returnStringBuilder = new StringBuilder();
-            using var client = new HttpClient(new HttpClientHandler());
 
             //No cosmos, just dependency injection test....
             returnStringBuilder.Append($"Testing no Cosmos..... \r\n");
@@ -100,7 +99,7 @@ namespace TestAppForGRPCAndREST.Controllers
             {
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
-                var response2 = await client.GetStringAsync($"{host}/cosmostest/testendpoint");
+                var response2 = await _httpClient.GetStringAsync($"{host}/cosmostest/testendpoint");
                 sw.Stop();
 
                 returnStringBuilder.Append($"{response2}. Elapsed time: {sw.ElapsedMilliseconds} \r\n");
@@ -114,7 +113,7 @@ namespace TestAppForGRPCAndREST.Controllers
             {
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
-                var response2 = await client.GetStringAsync($"{host}/cosmostest/GetByID?id=c91c79d2-bfe2-4068-a60a-9f065ac8e078&partitionKey=WRAP00003");
+                var response2 = await _httpClient.GetStringAsync($"{host}/cosmostest/GetByID?id=c91c79d2-bfe2-4068-a60a-9f065ac8e078&partitionKey=WRAP00003");
                 sw.Stop();
 
                 returnStringBuilder.Append($"{response2}. Elapsed time: {sw.ElapsedMilliseconds} \r\n");
